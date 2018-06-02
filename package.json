@@ -1,0 +1,61 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "author": {
+    "name": "Park Jin San",
+    "email": "zinsani@gmail.com"
+  },
+  "build": {
+    "productName": "MyApp",
+    "appId": "com.zinsani.my-app",
+    "nsis": {
+      "perMachine": true
+    },
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["ia32"]
+        }
+      ]
+    },
+    "extraMetadata": {
+      "main": "build/electron.js"
+    },
+    "files": ["build/**/*", "public/installer.nsi"]
+  },
+  "main": "public/electron.js",
+  "homepage": "./",
+  "dependencies": {
+    "electron-is-dev": "^0.3.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4",
+    "rxjs": "^5.5.8",
+    "styled-components": "^3.2.3"
+  },
+  "devDependencies": {
+    "asar": "^0.14.2",
+    "concurrently": "^3.5.1",
+    "electron": "^1.8.2",
+    "electron-builder": "^20.2.0",
+    "wait-on": "^2.1.0"
+  },
+  "scripts": {
+    "start": "npx react-scripts start",
+    "build": "npx react-scripts build",
+    "test": "npx react-scripts test --env=jsdom",
+    "eject": "npx react-scripts eject",
+    "dev":
+      "npx concurrently \"PORT=3030 BROWSER=none yarn start\" \"npx wait-on http://localhost:3030 && PORT=3030 npx electron .\"",
+    "dev:win":
+      "npx concurrently \"npx cross-env PORT=3030 BROWSER=none yarn start\" \"npx wait-on http://localhost:3030 && npx cross-env PORT=3030 electron .\"",
+    "prepack": "yarn build",
+    "predist": "yarn build",
+    "pack": "npx electron-builder --dir",
+    "dist": "npx electron-builder",
+    "dist:win": "npx electron-builder -w"
+  }
+}
